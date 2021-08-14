@@ -35,6 +35,12 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
         holder.tvNamaBarang.setText(data.get(position).getNamaBarang());
         holder.tvDeskripsiBarang.setText(data.get(position).getDeskripsiBarang());
         holder.tvHargaBarang.setText(data.get(position).getHargaBarang());
+        holder.constraint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
 
     }
 

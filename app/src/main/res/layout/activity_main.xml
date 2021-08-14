@@ -7,13 +7,6 @@
     tools:context=".MainActivity"
     android:background="@drawable/loginbackground">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_post"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingConstraints">
-
-    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_posting"
@@ -34,7 +27,7 @@
         <FrameLayout
             android:id="@+id/container_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:animateLayoutChanges="true"
             android:layout_above="@id/btm_nav_menu"
             tools:ignore="MissingConstraints">

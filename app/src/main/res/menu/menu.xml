@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_menu_shop"
+        android:id="@+id/item_menu_profile"
         android:icon="@drawable/vector_account_circle"
         android:title="Profile" />
     <item
-        android:id="@+id/item_menu_profile"
+        android:id="@+id/item_menu_shop"
         android:icon="@drawable/vector_shopping_bag"
-        android:title="shop"/>
+        android:title="Shop"/>
     <item
         android:id="@+id/item_menu_search"
         android:icon="@drawable/vector_search"

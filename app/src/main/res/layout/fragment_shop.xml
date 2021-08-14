@@ -6,55 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentShop">
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@drawable/loginbackground">-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_post"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:ignore="MissingConstraints">-->
-
-<!--        </androidx.recyclerview.widget.RecyclerView>-->
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/btn_posting"-->
-<!--            android:src="@drawable/vector_add"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:layout_marginBottom="50dp"/>-->
-
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:ignore="MissingConstraints">-->
-
-<!--            <FrameLayout-->
-<!--                android:id="@+id/frame_lay"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:animateLayoutChanges="true"-->
-<!--                android:layout_above="@id/btm_nav"-->
-<!--                tools:ignore="MissingConstraints">-->
-
-<!--            </FrameLayout>-->
-
-<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--                android:id="@+id/btm_nav"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                tools:ignore="MissingConstraints"-->
-<!--                app:menu="@menu/menu"-->
-<!--                android:layout_alignParentBottom="true"/>-->
-
-<!--        </RelativeLayout>-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>
