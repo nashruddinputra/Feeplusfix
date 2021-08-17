@@ -32,18 +32,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton fabButtonAdd;
     BottomNavigationView bottomNavigationView;
 
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     FirebaseDatabase mDatabase;
     DatabaseReference dataRef;
+
+    Fragment fProfile = new FragmentProfile();
+    Fragment fShop = new FragmentShop();
+    Fragment fAbout = new FragmentAbout();
 
     String userId;
     private BottomNavigationView.OnNavigationItemReselectedListener navigation;
@@ -53,84 +57,45 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance();
 
+
         assert fUser != null;
         userId = fUser.getUid();
 
-        dataRef = mDatabase.getReference().child("posts").child(userId);
+        setFragment(fShop);
+        setFragment(fProfile);
+        setFragment(fAbout);
+
+        dataRef = mDatabase.getReference().child("posts");
 
         bottomNavigationView = findViewById(R.id.btm_nav_menu);
-        fabButtonAdd = findViewById(R.id.btn_posting);
-
-//        bottomNavigationView.setOnNavigationItemReselectedListener(navigation);
-//        navigation = new BottomNavigationView.OnNavigationItemReselectedListener() {
-//            @Override
-//            public void onNavigationItemReselected(MenuItem item) {
-//                Fragment f = null;
-//                switch (item.getItemId()){
-//                    case R.id.item_menu_profile:
-//                        f = new FragmentProfile();
-//                        break;
-//
-//                    case R.id.item_menu_shop:
-//                        f = new FragmentShop();
-//                        break;
-//
-//                    case R.id.item_menu_search:
-//                        f = new FragmentSearch();
-//                        break;
-//
-//                    case R.id.item_menu_about:
-//                        f = new FragmentAbout();
-//                        break;
-//                }
-//                getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,f).commit();
-//            }
-//        };
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment f = null;
                 switch (item.getItemId()){
                     case R.id.item_menu_profile:
-                        f = new FragmentProfile();
-                        setFragment(f);
+                        setFragment(fProfile);
                         break;
 
                     case R.id.item_menu_shop:
-                        f = new FragmentShop();
-                        setFragment(f);
-                        break;
-
-                    case R.id.item_menu_search:
-                        f = new FragmentSearch();
-                        setFragment(f);
+                        setFragment(fShop);
                         break;
 
                     case R.id.item_menu_about:
-                        f = new FragmentAbout();
-                        setFragment(f);
+                        setFragment(fAbout);
                         break;
                 }
-//                getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,f).commit();
 
                 return true;
             }
         });
 
-
-        fabButtonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddPosting.class);
-                startActivity(intent);
-            }
-        });
-
+        bottomNavigationView.setSelectedItemId(R.id.item_menu_shop);
 
     }
 
@@ -141,5 +106,16 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
+    public void openDetail(Post post) {
+        Intent intent = new Intent(getApplicationContext(), DetailPost.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("post",(Serializable)post);
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 
 }

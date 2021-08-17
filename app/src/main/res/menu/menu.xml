@@ -10,11 +10,6 @@
         android:icon="@drawable/vector_shopping_bag"
         android:title="Shop"/>
     <item
-        android:id="@+id/item_menu_search"
-        android:icon="@drawable/vector_search"
-        android:title="Search"/>
-
-    <item
         android:id="@+id/item_menu_about"
         android:icon="@drawable/vector_info"
         android:title="About"/>

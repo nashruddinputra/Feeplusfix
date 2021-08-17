@@ -3,12 +3,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentProfile">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:layout_marginTop="50dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_no_wa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No WhatsApp Anda:"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile"
+            app:layout_constraintBottom_toTopOf="@id/tv_no_wa_user"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_no_wa_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No WhatsApp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_no_wa"
+            app:layout_constraintBottom_toTopOf="@id/til_nomer_hp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_nomer_hp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor WhatsApp"
+            app:layout_constraintTop_toBottomOf="@id/tv_no_wa_user"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <EditText
+                android:id="@+id/et_nomer_wa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="20"
+                android:inputType="number"
+                tools:ignore="MissingConstraints" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <android.widget.Button
+            android:id="@+id/btn_kirim_no_wa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tambah/Ubah"
+            android:textAllCaps="false"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_nomer_hp"
+            android:background="@color/teal_200"/>
+
+        <android.widget.Button
+            android:id="@+id/btn_sign_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SignOut"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="50dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

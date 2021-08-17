@@ -1,8 +1,12 @@
 package com.example.feeplusfix.model;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
 
     String namaBarang, deskripsiBarang, hargaBarang;
+
+    String userId;
 
     public Post(){
 
@@ -36,5 +40,13 @@ public class Post {
 
     public void setHargaBarang(String hargaBarang) {
         this.hargaBarang = hargaBarang;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

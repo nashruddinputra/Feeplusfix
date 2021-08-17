@@ -1,5 +1,10 @@
 package com.example.feeplusfix.adapter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +13,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.feeplusfix.DetailPost;
 import com.example.feeplusfix.R;
 import com.example.feeplusfix.model.Post;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
      List<Post> data;
 
-    public PostRecyclerViewAdapter(List<Post> data){
+    Activity activity;
+
+    public PostRecyclerViewAdapter(List<Post> data, Activity activity){
         this.data = data;
+        this.activity = activity;
     }
 
     @NonNull
@@ -26,7 +36,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
-        return new PostViewHolder(view);
+        return new PostViewHolder(view, activity);
     }
 
     @Override
@@ -35,12 +45,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
         holder.tvNamaBarang.setText(data.get(position).getNamaBarang());
         holder.tvDeskripsiBarang.setText(data.get(position).getDeskripsiBarang());
         holder.tvHargaBarang.setText(data.get(position).getHargaBarang());
-        holder.constraint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
+        holder.post = data.get(position);
 
     }
 
@@ -48,6 +53,5 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
     public int getItemCount() {
         return (data != null) ? data.size() : 0;
     }
-
 }
 

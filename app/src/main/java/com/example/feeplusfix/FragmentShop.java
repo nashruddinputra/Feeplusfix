@@ -1,19 +1,23 @@
 package com.example.feeplusfix;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.example.feeplusfix.adapter.PostRecyclerViewAdapter;
+import com.example.feeplusfix.model.AddPosting;
 import com.example.feeplusfix.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,8 +52,26 @@ public class FragmentShop extends Fragment {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
 
         rvPost = view.findViewById(R.id.rv_post);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
         rvPost.setLayoutManager(layoutManager);
+
+        rvPost.setFocusable(true);
+        rvPost.setClickable(true);
+        rvPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "onClick: askdosakdosak");
+            }
+        });
+        fabButtonAdd = view.findViewById(R.id.btn_posting);
+
+        fabButtonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), AddPosting.class);
+                startActivity(intent);
+            }
+        });
 
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,11 +80,12 @@ public class FragmentShop extends Fragment {
                 for(DataSnapshot childPost : snapshot.getChildren()){
                     for (DataSnapshot child : childPost.getChildren()){
                         Post tampilbarang = child.getValue(Post.class);
+                        tampilbarang.setUserId(childPost.getKey());
                         data.add(tampilbarang);
                     }
                 }
 
-                rvAdapter = new PostRecyclerViewAdapter(data);
+                rvAdapter = new PostRecyclerViewAdapter(data, requireActivity());
                 rvPost.setAdapter(rvAdapter);
                 rvAdapter.notifyDataSetChanged();
             }
