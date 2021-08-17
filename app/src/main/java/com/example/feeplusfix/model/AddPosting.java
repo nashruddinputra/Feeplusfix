@@ -80,6 +80,7 @@ public class AddPosting extends AppCompatActivity {
 
 
 
+
         btnOpenGalery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
