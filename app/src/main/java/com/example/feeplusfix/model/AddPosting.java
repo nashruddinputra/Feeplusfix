@@ -77,6 +77,9 @@ public class AddPosting extends AppCompatActivity {
         imgViewPhoto = findViewById(R.id.img_view_photo);
         btnOpenGalery = findViewById(R.id.btn_open_galery);
 
+
+
+
         btnOpenGalery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
