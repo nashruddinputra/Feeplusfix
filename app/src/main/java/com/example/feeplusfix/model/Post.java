@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Post implements Serializable {
 
-    String namaBarang, deskripsiBarang, hargaBarang;
+    String namaBarang, deskripsiBarang, hargaBarang, gambarBarang;
 
     String userId;
 
@@ -12,10 +12,11 @@ public class Post implements Serializable {
 
     }
 
-    public Post(String namaBarang, String deskripsiBarang, String hargaBarang) {
+    public Post(String namaBarang, String deskripsiBarang, String hargaBarang, String gambarBarang) {
         this.namaBarang = namaBarang;
         this.deskripsiBarang = deskripsiBarang;
         this.hargaBarang = hargaBarang;
+        this.gambarBarang = gambarBarang;
     }
 
     public String getNamaBarang() {
@@ -30,9 +31,7 @@ public class Post implements Serializable {
         return deskripsiBarang;
     }
 
-    public void setDeskripsiBarang(String deskripsiBarang) {
-        this.deskripsiBarang = deskripsiBarang;
-    }
+    public void setDeskripsiBarang(String deskripsiBarang) { this.deskripsiBarang = deskripsiBarang; }
 
     public String getHargaBarang() {
         return hargaBarang;
@@ -49,4 +48,8 @@ public class Post implements Serializable {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public String getGambarBarang(){ return gambarBarang; }
+
+    public void setGambarBarang(String gambarBarang){ this.gambarBarang = gambarBarang;}
 }

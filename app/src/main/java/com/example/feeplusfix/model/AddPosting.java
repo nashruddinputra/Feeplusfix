@@ -5,25 +5,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentResolver;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.feeplusfix.MainActivity;
@@ -34,28 +30,34 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.ByteArrayOutputStream;
 import java.util.Random;
+import java.util.UUID;
 
-public class AddPosting extends AppCompatActivity {
+public class AddPosting extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etNamaBarang, etDeskripsiBarang, etHargaBarang;
-    private android.widget.Button btnKirimBarang, btnOpenCamera, btnOpenGalery;
+    private android.widget.Button btnKirimBarang, btnOpenStorage;
     private ImageView imgViewPhoto;
-    private int CAMERA_PERMISSION_CODE = 101;
-    private int CAMERA_REQUEST_CODE = 102;
-    private int GALLERY_REQUEST_CODE = 105;
-    private String currentPhotoPath;
+    private ProgressBar pbUploadImage;
 
+    private static final int CAMERA_PERMISSION_CODE = 101;
+    private static final int CAMERA_REQUEST_CODE = 102;
+    private static final int GALLERY_REQUEST_CODE = 105;
+
+    FirebaseStorage fStorage;
+    StorageReference fStorageRef;
     FirebaseDatabase mDatabase;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
 
     String userId;
+    String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,32 +71,18 @@ public class AddPosting extends AppCompatActivity {
         assert fUser != null;
         userId = fUser.getUid();
 
+        fStorage = FirebaseStorage.getInstance();
+        fStorageRef = fStorage.getReference();
+
         etNamaBarang = findViewById(R.id.et_nama_barang);
         etDeskripsiBarang = findViewById(R.id.et_deskripsi_barang);
         etHargaBarang = findViewById(R.id.et_harga_barang);
         btnKirimBarang = findViewById(R.id.btn_kirim_barang);
-        btnOpenCamera = findViewById(R.id.btn_open_camera);
-        imgViewPhoto = findViewById(R.id.img_view_photo);
-        btnOpenGalery = findViewById(R.id.btn_open_galery);
+        btnOpenStorage = findViewById(R.id.btn_open_storage);
+        imgViewPhoto = findViewById(R.id.im_add_image);
+        pbUploadImage = findViewById(R.id.pb_upload_image);
 
-
-
-
-
-        btnOpenGalery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
-            }
-        });
-
-        btnOpenCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AskPermissionsCamera();
-            }
-        });
+        btnOpenStorage.setOnClickListener(this);
 
         btnKirimBarang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +91,7 @@ public class AddPosting extends AppCompatActivity {
                 String namabarang = etNamaBarang.getText().toString().trim();
                 String deskripsibarang = etDeskripsiBarang.getText().toString().trim();
                 String hargabarang = etHargaBarang.getText().toString().trim();
+                String gambarbarang = imageUrl;
 
                 boolean isvalid = true;
                 if (TextUtils.isEmpty(namabarang)) {
@@ -122,7 +111,7 @@ public class AddPosting extends AppCompatActivity {
                     return;
                 }
 
-                writeNewPost(namabarang, deskripsibarang, hargabarang);
+                writeNewPost(namabarang, deskripsibarang, hargabarang, gambarbarang);
 
             }
         });
@@ -143,8 +132,8 @@ public class AddPosting extends AppCompatActivity {
         return saltStr;
     }
 
-    public void writeNewPost(String namaBarang, String deskripsiBarang, String hargaBarang) {
-        Post tambahbarang = new Post(namaBarang, deskripsiBarang, hargaBarang);
+    public void writeNewPost(String namaBarang, String deskripsiBarang, String hargaBarang, String gambarbarang) {
+        Post tambahbarang = new Post(namaBarang, deskripsiBarang, hargaBarang, gambarbarang);
 
         DatabaseReference dataref = mDatabase.getReference().child("posts").child(userId).child(this.getSaltString());
 
@@ -168,13 +157,30 @@ public class AddPosting extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.btn_open_storage:
+                AskPermissionsCamera();
+                AskPermissionsGalery();
+                getImage();
+                break;
+        }
+
+    }
+
     private void AskPermissionsCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
 
-        } else {
-            OpenCamera();
-            dispatchTakePictureIntent();
+        }
+    }
+
+    private void AskPermissionsGalery(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+
         }
     }
 
@@ -185,75 +191,118 @@ public class AddPosting extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 OpenCamera();
             } else {
-                Toast.makeText(AddPosting.this, "Camera Permission is Required to Use Camera!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPosting.this, "Permission is Required!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (requestCode == GALLERY_REQUEST_CODE){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                OpenGalery();
+            } else {
+                Toast.makeText(AddPosting.this, "Permission is Required!", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 
     private void OpenCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
     }
 
+    private void OpenGalery(){
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+    }
+
+    private void getImage(){
+        CharSequence[] menu = {"Kamera", "Galeri"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this).setTitle("Upload Image").setItems(menu, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case 0:
+                        Intent Camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(Camera,CAMERA_REQUEST_CODE);
+                        break;
+
+                    case 1:
+                        Intent Galery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(Galery,GALLERY_REQUEST_CODE);
+                }
+            }
+        });
+
+        dialog.create();
+        dialog.show();
+    }
+
+    private void uploadImage(){
+        imgViewPhoto.setDrawingCacheEnabled(true);
+        imgViewPhoto.buildDrawingCache();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        byte[] bytes = stream.toByteArray();
+        String namaFile = UUID.randomUUID() + ".jpg";
+        String pathImage = "gambar/" + namaFile;
+        StorageReference photoRef = fStorageRef.child("images").child(userId).child(pathImage);
+        UploadTask uploadTask = photoRef.putBytes(bytes);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                photoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String url = uri.toString();
+                        imageUrl = url;
+                    }
+                });
+                Toast.makeText(AddPosting.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+                pbUploadImage.setVisibility(View.GONE);
+                imgViewPhoto.setVisibility(View.VISIBLE);
+            }
+        });
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddPosting.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                Toast.makeText(AddPosting.this, "On Progress", Toast.LENGTH_SHORT).show();
+                pbUploadImage.setVisibility(View.VISIBLE);
+                double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                pbUploadImage.setProgress((int) progress);
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                File f = new File(currentPhotoPath);
-                imgViewPhoto.setImageURI(Uri.fromFile(f));
 
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri contentUri = Uri.fromFile(f);
-                mediaScanIntent.setData(contentUri);
-                this.sendBroadcast(mediaScanIntent);
-            }
-        }
-        if(requestCode == GALLERY_REQUEST_CODE){
-            if(resultCode == Activity.RESULT_OK){
-                Uri contentUri = data.getData();
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String imageFileName = "JPEG_" + timeStamp +"."+getFileExt(contentUri);
-                imgViewPhoto.setImageURI(contentUri);
-            }
+        switch (requestCode){
+            case CAMERA_REQUEST_CODE:
+                if (resultCode == RESULT_OK){
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    imgViewPhoto.setImageBitmap(bitmap);
+                    uploadImage();
+                }
+                break;
 
-        }
-    }
+            case GALLERY_REQUEST_CODE:
+                if (resultCode == RESULT_OK){
+                    Uri uri = data.getData();
+                    imgViewPhoto.setImageURI(uri);
+                    uploadImage();
 
-    private String getFileExt(Uri contentUri) {
-        ContentResolver c = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(c.getType(contentUri));
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName, ".jpg", storageDir);
-
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-
-            }
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.feeplusfix",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-            }
+                }
+                break;
         }
     }
-
 }

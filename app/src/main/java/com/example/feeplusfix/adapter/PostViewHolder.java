@@ -3,9 +3,11 @@ package com.example.feeplusfix.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import java.io.Serializable;
 public class PostViewHolder extends RecyclerView.ViewHolder {
     TextView tvNamaBarang, tvDeskripsiBarang, tvHargaBarang;
     android.widget.Button btnDetailPost;
+    ImageView imGambarBarang;
 
     Post post;
 
@@ -33,6 +36,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         tvDeskripsiBarang = itemView.findViewById(R.id.tv_deskripsi_barang);
         tvHargaBarang = itemView.findViewById(R.id.tv_harga_barang);
         btnDetailPost = itemView.findViewById(R.id.btn_detail_post);
+        imGambarBarang = itemView.findViewById(R.id.im_image_post);
+
 
         btnDetailPost.setOnClickListener(new View.OnClickListener() {
             @Override

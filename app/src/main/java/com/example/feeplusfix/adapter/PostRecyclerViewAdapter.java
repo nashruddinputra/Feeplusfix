@@ -45,8 +45,8 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
         holder.tvNamaBarang.setText(data.get(position).getNamaBarang());
         holder.tvDeskripsiBarang.setText(data.get(position).getDeskripsiBarang());
         holder.tvHargaBarang.setText(data.get(position).getHargaBarang());
+//        holder.imGambarBarang.setImageResource(Integer.parseInt(data.get(position).getGambarBarang()));
         holder.post = data.get(position);
-
     }
 
     @Override
