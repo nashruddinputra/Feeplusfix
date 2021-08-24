@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.feeplusfix.DetailPost;
 import com.example.feeplusfix.R;
 import com.example.feeplusfix.model.Post;
@@ -45,7 +47,12 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
         holder.tvNamaBarang.setText(data.get(position).getNamaBarang());
         holder.tvDeskripsiBarang.setText(data.get(position).getDeskripsiBarang());
         holder.tvHargaBarang.setText(data.get(position).getHargaBarang());
-//        holder.imGambarBarang.setImageResource(Integer.parseInt(data.get(position).getGambarBarang()));
+        if(!TextUtils.isEmpty(data.get(position).getGambarBarang())){
+            Glide.with(activity).load(data.get(position).getGambarBarang())
+                    .centerCrop()
+                    .into(holder.imGambarBarang);
+            holder.imGambarBarang.setVisibility(View.VISIBLE);
+        }
         holder.post = data.get(position);
     }
 

@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Random;
 import java.util.UUID;
 
@@ -240,7 +242,9 @@ public class AddPosting extends AppCompatActivity implements View.OnClickListene
     private void uploadImage(){
         imgViewPhoto.setDrawingCacheEnabled(true);
         imgViewPhoto.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imgViewPhoto.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bytes = stream.toByteArray();
         String namaFile = UUID.randomUUID() + ".jpg";
         String pathImage = "gambar/" + namaFile;
@@ -305,4 +309,6 @@ public class AddPosting extends AppCompatActivity implements View.OnClickListene
                 break;
         }
     }
+
+
 }

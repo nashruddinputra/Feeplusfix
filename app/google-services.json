@@ -42,6 +42,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673425761247:android:60a99501ba15196fde1a6a",
+        "android_client_info": {
+          "package_name": "com.penyok.feeplusfix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673425761247-nqm4brrqpe3dj5cb7ehgnsjhls1vhn53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoY-IsoOzyNuXx3kGX-L6CA0pI1-9ddRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673425761247-lblf5iu1j124tnacu83o8l978ji506is.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
