@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "673425761247-k8rocuhfnep8gn6plseq0t52jalbsh7o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.penyok.feeplusfix",
+            "certificate_hash": "9802316d81cda36d494fe94950383b74954cb91f"
+          }
+        },
+        {
           "client_id": "673425761247-nqm4brrqpe3dj5cb7ehgnsjhls1vhn53.apps.googleusercontent.com",
           "client_type": 3
         }

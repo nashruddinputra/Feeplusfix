@@ -1,26 +1,16 @@
-package com.example.feeplusfix.adapter;
+package com.penyok.feeplusfix.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.feeplusfix.DetailPost;
-import com.example.feeplusfix.MainActivity;
-import com.example.feeplusfix.R;
-import com.example.feeplusfix.model.AddPosting;
-import com.example.feeplusfix.model.Post;
-
-import java.io.Serializable;
+import com.penyok.feeplusfix.MainActivity;
+import com.penyok.feeplusfix.R;
+import com.penyok.feeplusfix.model.Post;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
     TextView tvNamaBarang, tvDeskripsiBarang, tvHargaBarang;

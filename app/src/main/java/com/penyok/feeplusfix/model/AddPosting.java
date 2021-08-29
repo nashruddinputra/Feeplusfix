@@ -1,4 +1,4 @@
-package com.example.feeplusfix.model;
+package com.penyok.feeplusfix.model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +23,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.feeplusfix.MainActivity;
-import com.example.feeplusfix.R;
+import com.penyok.feeplusfix.MainActivity;
+import com.penyok.feeplusfix.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +37,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.Random;
 import java.util.UUID;
 

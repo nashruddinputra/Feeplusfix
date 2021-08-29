@@ -1,4 +1,4 @@
-package com.example.feeplusfix;
+package com.penyok.feeplusfix;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,12 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.feeplusfix.model.Post;
+import com.penyok.feeplusfix.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -56,13 +55,9 @@ public class DetailPost extends AppCompatActivity {
         tvDeskripsiBarang.setText(post.getDeskripsiBarang());
         tvHargaBarang.setText(post.getHargaBarang());
 
-<<<<<<< HEAD
-        Glide.with(DetailPost.this).load(post.getGambarBarang()).centerCrop().into(img_post);
-=======
         Glide.with(DetailPost.this).load(post.getGambarBarang())
                 .centerCrop()
                 .into(img_post);
->>>>>>> 0733fd520b51f8b81a937a64bb2233ee40f8b3df
 
         btnNoWaPenjual.setVisibility(View.GONE);
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.feeplusfix">
+    package="com.penyok.feeplusfix">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -23,18 +23,18 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Feeplusfix">
-        <activity android:name=".SplashScreen">
+        <activity android:name="com.penyok.feeplusfix.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstPageActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".model.AddPosting" />
-        <activity android:name=".DetailPost"/>
+        <activity android:name="com.penyok.feeplusfix.FirstPageActivity" />
+        <activity android:name="com.penyok.feeplusfix.LoginActivity" />
+        <activity android:name="com.penyok.feeplusfix.MainActivity" />
+        <activity android:name="com.penyok.feeplusfix.model.AddPosting" />
+        <activity android:name="com.penyok.feeplusfix.DetailPost"/>
     </application>
 
 </manifest>

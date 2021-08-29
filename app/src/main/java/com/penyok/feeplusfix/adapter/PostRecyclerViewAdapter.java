@@ -1,25 +1,18 @@
-package com.example.feeplusfix.adapter;
+package com.penyok.feeplusfix.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.feeplusfix.DetailPost;
-import com.example.feeplusfix.R;
-import com.example.feeplusfix.model.Post;
+import com.penyok.feeplusfix.R;
+import com.penyok.feeplusfix.model.Post;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder> {
@@ -48,13 +41,9 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
         holder.tvDeskripsiBarang.setText(data.get(position).getDeskripsiBarang());
         holder.tvHargaBarang.setText(data.get(position).getHargaBarang());
         if(!TextUtils.isEmpty(data.get(position).getGambarBarang())){
-<<<<<<< HEAD
-            Glide.with(activity).load(data.get(position).getGambarBarang()).centerCrop().into(holder.imGambarBarang);
-=======
             Glide.with(activity).load(data.get(position).getGambarBarang())
                     .centerCrop()
                     .into(holder.imGambarBarang);
->>>>>>> 0733fd520b51f8b81a937a64bb2233ee40f8b3df
             holder.imGambarBarang.setVisibility(View.VISIBLE);
         }
         holder.post = data.get(position);

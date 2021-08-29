@@ -1,4 +1,4 @@
-package com.example.feeplusfix;
+package com.penyok.feeplusfix;
 
 import androidx.appcompat.app.AppCompatActivity;
 

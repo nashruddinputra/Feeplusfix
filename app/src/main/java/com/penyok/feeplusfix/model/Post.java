@@ -1,4 +1,4 @@
-package com.example.feeplusfix.model;
+package com.penyok.feeplusfix.model;
 
 import java.io.Serializable;
 
