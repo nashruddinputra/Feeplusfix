@@ -85,7 +85,7 @@ public class FragmentShop extends Fragment {
                     }
                 }
 
-                rvAdapter = new PostRecyclerViewAdapter(data, requireActivity());
+                rvAdapter = new PostRecyclerViewAdapter(data, getActivity());
                 rvPost.setAdapter(rvAdapter);
                 rvAdapter.notifyDataSetChanged();
             }

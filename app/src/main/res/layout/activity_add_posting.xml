@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,126 +7,130 @@
     tools:context=".model.AddPosting"
     android:background="@drawable/logoblur">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_tambah_barang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Posting Barang"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <com.google.android.material.textview.MaterialTextView
+           android:id="@+id/tv_tambah_barang"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Posting Barang"
+           android:textSize="40sp"
+           android:textStyle="bold"
+           android:textAlignment="center"
+           android:layout_marginTop="50dp"
+           app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_nama_barang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nama Barang"
-        app:layout_constraintTop_toBottomOf="@id/tv_tambah_barang"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+       <com.google.android.material.textfield.TextInputLayout
+           android:id="@+id/til_nama_barang"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Nama Barang"
+           app:layout_constraintTop_toBottomOf="@id/tv_tambah_barang"
+           tools:ignore="MissingConstraints"
+           android:layout_marginTop="40dp"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp">
 
-        <EditText
-            android:id="@+id/et_nama_barang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:singleLine="true"
-            android:maxLength="20" />
+           <EditText
+               android:id="@+id/et_nama_barang"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:inputType="text"
+               android:singleLine="true"
+               android:maxLength="20" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+       </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_deskripsi_barang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Deskripsi Barang"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@id/til_nama_barang">
+       <com.google.android.material.textfield.TextInputLayout
+           android:id="@+id/til_deskripsi_barang"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Deskripsi Barang"
+           android:layout_marginTop="20dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginLeft="10dp"
+           tools:ignore="MissingConstraints"
+           app:layout_constraintTop_toBottomOf="@id/til_nama_barang">
 
-        <EditText
-            android:id="@+id/et_deskripsi_barang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:singleLine="false"
-            android:maxLength="300" />
+           <EditText
+               android:id="@+id/et_deskripsi_barang"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:inputType="text"
+               android:singleLine="false"
+               android:maxLength="300" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+       </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_harga_barang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Harga Barang"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@id/til_deskripsi_barang">
+       <com.google.android.material.textfield.TextInputLayout
+           android:id="@+id/til_harga_barang"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:hint="Harga Barang"
+           android:layout_marginTop="20dp"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp"
+           tools:ignore="MissingConstraints"
+           app:layout_constraintTop_toBottomOf="@id/til_deskripsi_barang">
 
-        <EditText
-            android:id="@+id/et_harga_barang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:singleLine="true"
-            android:maxLength="20" />
+           <EditText
+               android:id="@+id/et_harga_barang"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:inputType="number"
+               android:singleLine="true"
+               android:maxLength="20" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+       </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/im_add_image"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="12dp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/til_harga_barang"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:src="@drawable/logo" />
+       <ImageView
+           android:id="@+id/im_add_image"
+           android:layout_width="300dp"
+           android:layout_height="150dp"
+           android:layout_marginTop="12dp"
+           android:visibility="invisible"
+           app:layout_constraintTop_toBottomOf="@id/til_harga_barang"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintLeft_toLeftOf="parent"
+           tools:src="@drawable/logo" />
 
-    <ProgressBar
-        android:id="@+id/pb_upload_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintTop_toBottomOf="@+id/til_harga_barang"
-        app:layout_constraintBottom_toTopOf="@id/btn_open_storage"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:visibility="invisible"/>
+       <ProgressBar
+           android:id="@+id/pb_upload_image"
+           android:layout_width="150dp"
+           android:layout_height="150dp"
+           app:layout_constraintTop_toBottomOf="@+id/til_harga_barang"
+           app:layout_constraintBottom_toTopOf="@id/btn_open_storage"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           android:visibility="invisible"/>
 
-    <android.widget.Button
-        android:id="@+id/btn_open_storage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/im_add_image"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:text="Upload Gambar"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/teal_200" />
+       <android.widget.Button
+           android:id="@+id/btn_open_storage"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/im_add_image"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintLeft_toLeftOf="parent"
+           android:layout_marginTop="20dp"
+           android:layout_marginRight="10dp"
+           android:text="Upload Gambar"
+           android:textColor="@color/black"
+           android:textAllCaps="false"
+           android:backgroundTint="@color/teal_200" />
 
-    <android.widget.Button
-        android:id="@+id/btn_kirim_barang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_open_storage"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="Kirim"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/teal_200"/>
+       <android.widget.Button
+           android:id="@+id/btn_kirim_barang"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/btn_open_storage"
+           android:layout_marginTop="20dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginLeft="10dp"
+           android:text="Kirim"
+           android:textColor="@color/black"
+           android:textAllCaps="false"
+           android:backgroundTint="@color/teal_200"/>
+   </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -48,7 +48,13 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostViewHolder
         holder.tvDeskripsiBarang.setText(data.get(position).getDeskripsiBarang());
         holder.tvHargaBarang.setText(data.get(position).getHargaBarang());
         if(!TextUtils.isEmpty(data.get(position).getGambarBarang())){
+<<<<<<< HEAD
             Glide.with(activity).load(data.get(position).getGambarBarang()).centerCrop().into(holder.imGambarBarang);
+=======
+            Glide.with(activity).load(data.get(position).getGambarBarang())
+                    .centerCrop()
+                    .into(holder.imGambarBarang);
+>>>>>>> 0733fd520b51f8b81a937a64bb2233ee40f8b3df
             holder.imGambarBarang.setVisibility(View.VISIBLE);
         }
         holder.post = data.get(position);

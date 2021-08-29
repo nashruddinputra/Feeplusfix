@@ -37,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Random;
 import java.util.UUID;
 
@@ -307,4 +308,6 @@ public class AddPosting extends AppCompatActivity implements View.OnClickListene
                 break;
         }
     }
+
+
 }

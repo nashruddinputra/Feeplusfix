@@ -56,7 +56,13 @@ public class DetailPost extends AppCompatActivity {
         tvDeskripsiBarang.setText(post.getDeskripsiBarang());
         tvHargaBarang.setText(post.getHargaBarang());
 
+<<<<<<< HEAD
         Glide.with(DetailPost.this).load(post.getGambarBarang()).centerCrop().into(img_post);
+=======
+        Glide.with(DetailPost.this).load(post.getGambarBarang())
+                .centerCrop()
+                .into(img_post);
+>>>>>>> 0733fd520b51f8b81a937a64bb2233ee40f8b3df
 
         btnNoWaPenjual.setVisibility(View.GONE);
 
