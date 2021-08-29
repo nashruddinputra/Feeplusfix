@@ -60,7 +60,7 @@ public class FragmentShop extends Fragment {
         rvPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick: askdosakdosak");
+
             }
         });
         fabButtonAdd = view.findViewById(R.id.btn_posting);
