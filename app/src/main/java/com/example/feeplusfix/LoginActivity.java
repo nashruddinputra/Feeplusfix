@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         btnGoogleSignin = findViewById(R.id.btn_google_login);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("673425761247-lblf5iu1j124tnacu83o8l978ji506is.apps.googleusercontent.com")
+                .requestIdToken("673425761247-k8rocuhfnep8gn6plseq0t52jalbsh7o.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
